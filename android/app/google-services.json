@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "384944417843",
+    "project_id": "event-platform-ae772",
+    "storage_bucket": "event-platform-ae772.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384944417843:android:43a7b15447dd111321c746",
+        "android_client_info": {
+          "package_name": "com.example.event_platform_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBokv1eu87uhB0dTguVyyjsjI-vzWu94HY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
