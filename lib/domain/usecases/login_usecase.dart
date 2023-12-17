@@ -8,6 +8,6 @@ class LoginUsecase {
   LoginUsecase(this._repository);
 
   Future<Either<Failure, String>> execute(String email, String password) async {
-    return await _repository.login(email, password);
+    return await _repository.loginWithEmailAndPassword(email, password);
   }
 }
