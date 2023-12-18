@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final getIt = GetIt.instance;
 
 class ServicesLocator {
-  void init() async {
+  Future<void> init() async {
     final sharedPrefs = await SharedPreferences.getInstance();
 
     getIt.registerLazySingleton<SharedPreferences>(() => sharedPrefs);

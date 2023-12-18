@@ -17,7 +17,7 @@ bool isPasswordValidFun(String password) {
 }
 
 Widget customFormField({
-  required TextEditingController emailTextEditingcontroller,
+  required TextEditingController textEditingcontroller,
   required String textLabel,
   required String? errorLabel,
   required TextInputType textInputType,
@@ -65,7 +65,7 @@ Widget customFormField({
           ),
           errorText: errorLabel,
         ),
-        controller: emailTextEditingcontroller,
+        controller: textEditingcontroller,
         style: getMeduimStyle(color: ColorManager.dark),
         keyboardType: textInputType,
         onChanged: onChanged,

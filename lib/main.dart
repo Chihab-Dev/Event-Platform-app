@@ -8,7 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  ServicesLocator().init();
+  await ServicesLocator().init();
 
   runApp(const MainApp());
 }

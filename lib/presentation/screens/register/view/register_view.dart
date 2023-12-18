@@ -3,26 +3,24 @@ import 'package:event_platform_app/presentation/resources/strings_manager.dart';
 import 'package:event_platform_app/presentation/resources/styles_manager.dart';
 import 'package:event_platform_app/presentation/resources/values_manager.dart';
 import 'package:event_platform_app/presentation/resources/widgets.dart';
-import 'package:event_platform_app/presentation/screens/login/cubit/login_cubit.dart';
-import 'package:event_platform_app/presentation/screens/login/cubit/login_state.dart';
-import 'package:event_platform_app/presentation/screens/register/view/register_view.dart';
+import 'package:event_platform_app/presentation/screens/register/cubit/register_cubit.dart';
+import 'package:event_platform_app/presentation/screens/register/cubit/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class RegisterView extends StatelessWidget {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
+      create: (context) => RegisterCubit(),
+      child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var cubit = LoginCubit.get(context);
+          var cubit = RegisterCubit.get(context);
           return Scaffold(
-            backgroundColor: ColorManager.white,
             body: Center(
               child: Padding(
                 padding: EdgeInsets.all(AppPadding.p20.sp),
@@ -38,14 +36,27 @@ class LoginView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      AppStrings.welcome,
+                      AppStrings.registerInGdg,
                       style: getlargeStyle(color: ColorManager.blue),
                     ),
                     SizedBox(
                       height: AppSize.s50.sp,
                     ),
                     customFormField(
-                      textEditingcontroller: cubit.emailTextEditingcontroller,
+                      textEditingcontroller: cubit.nameTextEditingController,
+                      textLabel: AppStrings.fullName,
+                      errorLabel: cubit.nameErrorMessage,
+                      textInputType: TextInputType.name,
+                      onChanged: (value) {
+                        cubit.isNameValidCubitFun();
+                        cubit.nameErrorMessageFun();
+                      },
+                    ),
+                    SizedBox(
+                      height: AppSize.s20.sp,
+                    ),
+                    customFormField(
+                      textEditingcontroller: cubit.emailTextEditingController,
                       textLabel: AppStrings.emailLabel,
                       errorLabel: cubit.emailErrorMessage,
                       textInputType: TextInputType.emailAddress,
@@ -57,26 +68,26 @@ class LoginView extends StatelessWidget {
                       height: AppSize.s20.sp,
                     ),
                     customFormField(
-                      textEditingcontroller: cubit.passwordTextEditingcontroller,
+                      textEditingcontroller: cubit.passwordTextEditingController,
                       textLabel: AppStrings.passwordLabel,
                       errorLabel: cubit.passwordErrorMessage,
                       textInputType: TextInputType.visiblePassword,
                       onChanged: (value) {
-                        cubit.passwordErrorMessageFun();
                         cubit.isPasswordValidCubitFun();
+                        cubit.passwordErrorMessageFun();
                       },
                     ),
                     SizedBox(
                       height: AppSize.s50.sp,
                     ),
-                    state is LoginLoadingState
+                    state is RegisterLoadingState
                         ? CircularProgressIndicator(
                             color: ColorManager.blue,
                           )
                         : ElevatedButton(
-                            onPressed: (cubit.isEmailValid && cubit.isPasswordValid)
+                            onPressed: (cubit.isNameValid && cubit.isEmailValid && cubit.isPasswordValid)
                                 ? () {
-                                    cubit.loginWithEmailAndPassowrd();
+                                    cubit.registerWithEmailAndPassowrd();
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(
@@ -91,37 +102,12 @@ class LoginView extends StatelessWidget {
                                 horizontal: AppPadding.p30.sp,
                               ),
                               child: Text(
-                                AppStrings.login.toUpperCase(),
+                                AppStrings.register.toUpperCase(),
                                 style: getRegularStyle(color: ColorManager.white),
                               ),
                             )),
                     SizedBox(
-                      height: AppSize.s20.sp,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppStrings.alreadyHaveAnAcounte,
-                          style: getMeduimStyle(color: ColorManager.dark),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const RegisterView(),
-                                ));
-                          },
-                          child: Text(
-                            AppStrings.register,
-                            style: getMeduimStyle(color: ColorManager.blue),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: AppSize.s40.sp,
+                      height: AppSize.s50.sp,
                     ),
                   ],
                 ),

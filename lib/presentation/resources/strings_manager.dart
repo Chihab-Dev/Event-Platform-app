@@ -1,5 +1,6 @@
 class AppStrings {
   static const String welcome = "Welcome to GDG events ";
+  static const String registerInGdg = "Register In GDG";
   static const String alreadyHaveAnAcounte = "Already have an acounte ?";
   static const String register = "Register";
   static const String emailLabel = "Email";
@@ -11,4 +12,5 @@ class AppStrings {
   static const String nameErrorContainSpaces = "Name mustn't contains spaces";
   static const String nameErrorTooShort = "Name is too short";
   static const String nameErrorTooLong = "Name is too long";
+  static const String fullName = "Full name";
 }
