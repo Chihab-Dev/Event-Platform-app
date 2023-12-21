@@ -7,7 +7,7 @@ class RegisterInEventUsecase {
 
   RegisterInEventUsecase(this._repository);
 
-  Future<Either<Failure, void>> execute(String userId, String eventId) async {
-    return await _repository.registerInEvent(userId, eventId);
+  Future<Either<Failure, void>> execute(String email, String eventId) async {
+    return await _repository.registerInEvent(email, eventId);
   }
 }

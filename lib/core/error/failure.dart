@@ -1,5 +1,5 @@
 class Failure {
-  String errorDesc;
+  String messageError;
 
-  Failure(this.errorDesc);
+  Failure(this.messageError);
 }

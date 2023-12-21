@@ -23,14 +23,13 @@ class LoginCubit extends Cubit<LoginStates> {
     (await _loginUsecase.execute(emailTextEditingcontroller.text, passwordTextEditingcontroller.text)).fold(
       (failure) {
         print('🛑 loginWithEmailAndPassowrd');
-        emit(LoginErrorState(failure.errorDesc));
+        emit(LoginErrorState(failure.messageError));
       },
       (userId) {
         print('✅ loginWithEmailAndPassowrd');
         print(userId);
         _appPrefrences.setUserId(userId);
         _appPrefrences.setUserLoggedIn();
-
         emit(LoginSuccessState());
       },
     );
@@ -77,6 +76,4 @@ class LoginCubit extends Cubit<LoginStates> {
     }
     emit(LoginIsPasswordValidState());
   }
-
-
 }

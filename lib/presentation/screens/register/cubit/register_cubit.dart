@@ -28,7 +28,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     (await _registerUsecase.execute(emailTextEditingController.text, passwordTextEditingController.text)).fold(
       (failure) {
         print('🛑 RegisterWithEmailAndPassowrd');
-        emit(RegisterErrorState(failure.errorDesc));
+        emit(RegisterErrorState(failure.messageError));
       },
       (data) async {
         print('✅ registerWithEmailAndPassowrd');
@@ -46,7 +46,7 @@ class RegisterCubit extends Cubit<RegisterState> {
             .fold(
           (failure) {
             print('🛑 AddNewUserToFiresbaseUsecase');
-            emit(RegisterAddNewUserErrorState(failure.errorDesc));
+            emit(RegisterAddNewUserErrorState(failure.messageError));
           },
           (data) {
             print('✅ registerWithEmailAndPassowrd');

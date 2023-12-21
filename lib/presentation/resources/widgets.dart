@@ -73,3 +73,42 @@ Widget customFormField({
     ],
   );
 }
+
+Widget loadingScreen() {
+  return Scaffold(
+    backgroundColor: ColorManager.white,
+    appBar: AppBar(
+      backgroundColor: ColorManager.blue,
+      title: Text(
+        'Events',
+        style: getlargeStyle(color: ColorManager.white),
+      ),
+    ),
+    body: Center(
+      child: CircularProgressIndicator(
+        color: ColorManager.blue,
+      ),
+    ),
+  );
+}
+
+Widget customElevatodButton(String label, Function()? onPressed) {
+  return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ColorManager.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppPadding.p18.sp),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: AppPadding.p20.sp,
+          horizontal: AppPadding.p30.sp,
+        ),
+        child: Text(
+          label.toUpperCase(),
+          style: getRegularStyle(color: ColorManager.white),
+        ),
+      ));
+}

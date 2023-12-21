@@ -1,5 +1,7 @@
+import 'package:event_platform_app/core/services/app_preferences.dart';
 import 'package:event_platform_app/core/services/services_locator.dart';
 import 'package:event_platform_app/presentation/screens/login/view/login_view.dart';
+import 'package:event_platform_app/presentation/screens/main/view/main_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,14 +20,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(
-      designSize: Size(430, 932),
+    final AppPrefrences appPrefrences = AppPrefrences(getIt());
+    bool isUserLoggedIn = appPrefrences.isUserLoggedIn();
+
+    return ScreenUtilInit(
+      designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
       useInheritedMediaQuery: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginView(),
+        home: isUserLoggedIn ? const MainView() : const LoginView(),
       ),
     );
   }
