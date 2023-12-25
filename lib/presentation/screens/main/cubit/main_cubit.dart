@@ -31,6 +31,7 @@ class MainCubit extends Cubit<MainState> {
       (data) {
         print("✅ getUserById");
         member = data;
+        print(data.fullName);
       },
     );
   }

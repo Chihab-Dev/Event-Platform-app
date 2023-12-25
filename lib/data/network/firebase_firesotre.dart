@@ -86,4 +86,22 @@ class FirebaseStore {
       rethrow;
     }
   }
+
+  Future<EventModel> getEventById(String id) async {
+    try {
+      return await _firebaseFirestore.collection(FirebaseConstance.events).doc(id).get().then(
+        (value) {
+          return EventModel.fromJson(value.data()!);
+        },
+      ).catchError((onError) {
+        print("error getEventById");
+        print(onError.toString());
+        throw onError;
+      });
+    } on FirebaseException catch (e) {
+      print("error getEventById");
+      print(e);
+      rethrow;
+    }
+  }
 }

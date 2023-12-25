@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:event_platform_app/domain/entities/event.dart';
 import 'package:event_platform_app/domain/entities/member.dart';
 import 'package:event_platform_app/presentation/resources/color_manager.dart';
@@ -19,105 +21,107 @@ class EventDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EventDetailCubit(),
+      create: (context) => EventDetailCubit()..getEventByid(event.id),
       child: BlocConsumer<EventDetailCubit, EventDetailState>(
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = EventDetailCubit.get(context);
-          return Scaffold(
-            backgroundColor: ColorManager.white,
-            body: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: AppPadding.p30),
-                    child: state is EventDetailRegisterInEventLoadingState
-                        ? CircularProgressIndicator(
-                            color: ColorManager.blue,
-                          )
-                        : customElevatodButton(
-                            (event.registeredUsers.contains(member.email) || cubit.userRegistered == true)
-                                ? 'registered'
-                                : "register",
-                            (event.registeredUsers.contains(member.email) || cubit.userRegistered == true)
-                                ? null
-                                : () {
-                                    cubit.registerInEvent(member, event.id);
-                                  },
-                          ),
-                  ),
-                ),
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          return state is EventDetailGetEventByIdLoadingState
+              ? loadingScreen()
+              : Scaffold(
+                  backgroundColor: ColorManager.white,
+                  body: Stack(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        height: AppSize.s400.sp,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppPadding.p30.sp),
-                          image: DecorationImage(
-                            image: NetworkImage(event.image),
-                            fit: BoxFit.cover,
-                          ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: AppPadding.p30),
+                          child: state is EventDetailRegisterInEventLoadingState
+                              ? CircularProgressIndicator(
+                                  color: ColorManager.blue,
+                                )
+                              : customElevatodButton(
+                                  (cubit.event.registeredUsers.contains(member.email) || cubit.userRegistered == true)
+                                      ? 'registered'
+                                      : "register",
+                                  (cubit.event.registeredUsers.contains(member.email) || cubit.userRegistered == true)
+                                      ? null
+                                      : () {
+                                          cubit.registerInEvent(member, event.id, context);
+                                        },
+                                ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(AppPadding.p12.sp),
+                      SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              event.name,
-                              style: getlargeStyle(
-                                color: ColorManager.blue,
+                            Container(
+                              width: double.infinity,
+                              height: AppSize.s400.sp,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(AppPadding.p30.sp),
+                                image: DecorationImage(
+                                  image: NetworkImage(event.image),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            SizedBox(height: AppSize.s16.sp),
-                            Row(
-                              children: [
-                                const Icon(Icons.developer_board),
-                                const SizedBox(width: AppSize.s10),
-                                Text(
-                                  event.category,
-                                  style: getMeduimStyle(color: ColorManager.greenBlue),
-                                ),
-                                const Spacer(),
-                                Icon(
-                                  Icons.date_range,
-                                  color: ColorManager.blue,
-                                ),
-                                const SizedBox(width: AppSize.s10),
-                                Text(
-                                  event.dateBegin,
-                                  style: getMeduimStyle(color: ColorManager.greenBlue),
-                                ),
-                                const SizedBox(width: AppSize.s10),
-                                Text(
-                                  event.dateEnd,
-                                  style: getMeduimStyle(color: ColorManager.greenBlue),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: AppSize.s16.sp),
-                            Text(
-                              event.desc,
-                              maxLines: 10,
-                              style: getMeduimStyle(
-                                color: ColorManager.blue,
+                            Padding(
+                              padding: EdgeInsets.all(AppPadding.p12.sp),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    event.name,
+                                    style: getlargeStyle(
+                                      color: ColorManager.blue,
+                                    ),
+                                  ),
+                                  SizedBox(height: AppSize.s16.sp),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.developer_board),
+                                      const SizedBox(width: AppSize.s10),
+                                      Text(
+                                        event.category,
+                                        style: getMeduimStyle(color: ColorManager.greenBlue),
+                                      ),
+                                      const Spacer(),
+                                      Icon(
+                                        Icons.date_range,
+                                        color: ColorManager.blue,
+                                      ),
+                                      const SizedBox(width: AppSize.s10),
+                                      Text(
+                                        event.dateBegin,
+                                        style: getMeduimStyle(color: ColorManager.greenBlue),
+                                      ),
+                                      const SizedBox(width: AppSize.s10),
+                                      Text(
+                                        event.dateEnd,
+                                        style: getMeduimStyle(color: ColorManager.greenBlue),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: AppSize.s16.sp),
+                                  Text(
+                                    event.desc,
+                                    maxLines: 10,
+                                    style: getMeduimStyle(
+                                      color: ColorManager.blue,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+                            // SizedBox(height: AppSize.s250.sp),
                           ],
                         ),
                       ),
-                      // SizedBox(height: AppSize.s250.sp),
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
+                );
         },
       ),
     );

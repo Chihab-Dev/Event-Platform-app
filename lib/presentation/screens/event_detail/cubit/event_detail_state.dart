@@ -12,12 +12,12 @@ final class EventDetailRegisterInEventErrorState extends EventDetailState {
   EventDetailRegisterInEventErrorState(this.error);
 }
 
-final class EventDetailGetUseByIdLoadingState extends EventDetailState {}
+final class EventDetailGetEventByIdLoadingState extends EventDetailState {}
 
-final class EventDetailGetUseByIdSuccessState extends EventDetailState {}
+final class EventDetailGetEventByIdSuccessState extends EventDetailState {}
 
-final class EventDetailGetUseByIdErrorState extends EventDetailState {
+final class EventDetailGetEventByIdErrorState extends EventDetailState {
   final String error;
 
-  EventDetailGetUseByIdErrorState(this.error);
+  EventDetailGetEventByIdErrorState(this.error);
 }

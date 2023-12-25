@@ -10,6 +10,7 @@ abstract class RemoteDataSource {
   Future<String> registerWithEmailAndPassword(String email, String password);
   Future<String> addNewUserToFiresbase(Member member);
   Future<MemberModel> getUserById(String id);
+  Future<EventModel> getEventById(String id);
   Future<void> addNewEvent(Event event);
   Future<List<EventModel>> getAllEvents();
   Future<void> registerInEvent(String email, String eventId);
@@ -67,5 +68,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       email,
       eventId,
     );
+  }
+
+  @override
+  Future<EventModel> getEventById(String id) async {
+    return await _firebaseStore.getEventById(id);
   }
 }

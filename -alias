@@ -1,0 +1,1 @@
+keytool error: java.lang.Exception: Only one command is allowed: both -list and -list were specified.

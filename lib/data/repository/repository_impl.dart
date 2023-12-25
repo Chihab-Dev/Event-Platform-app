@@ -116,4 +116,19 @@ class RepositoryImpl implements Repository {
       return left(Failure(ErrorsConstance.noInternetConnection));
     }
   }
+
+  @override
+  Future<Either<Failure, Event>> getEventById(String id) async {
+    if (await _networkInfo.isConncted()) {
+      try {
+        Event event = await _remoteDataSource.getEventById(id);
+
+        return right(event);
+      } on FirebaseAuthException catch (e) {
+        return left(Failure(e.message.toString()));
+      }
+    } else {
+      return left(Failure(ErrorsConstance.noInternetConnection));
+    }
+  }
 }
