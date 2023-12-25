@@ -20,7 +20,11 @@ class MainView extends StatelessWidget {
         ..getAllEvents()
         ..getUserById(),
       child: BlocConsumer<MainCubit, MainState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is MaingetAllEventsErrorState) {
+            errorToast(state.error).show(context);
+          }
+        },
         builder: (context, state) {
           var cubit = MainCubit.get(context);
           var list = cubit.eventsList;

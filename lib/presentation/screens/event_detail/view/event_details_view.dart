@@ -23,7 +23,17 @@ class EventDetailsView extends StatelessWidget {
     return BlocProvider(
       create: (context) => EventDetailCubit()..getEventByid(event.id),
       child: BlocConsumer<EventDetailCubit, EventDetailState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is EventDetailRegisterInEventErrorState) {
+            errorToast(state.error).show(context);
+          }
+          if (state is EventDetailGetEventByIdErrorState) {
+            errorToast(state.error).show(context);
+          }
+          if (state is EventDetailRegisterInEventSuccessState) {
+            successToast('register success').show(context);
+          }
+        },
         builder: (context, state) {
           var cubit = EventDetailCubit.get(context);
           return state is EventDetailGetEventByIdLoadingState

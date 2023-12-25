@@ -27,6 +27,13 @@ class RegisterView extends StatelessWidget {
                 ),
                 (route) => false);
           }
+          if (state is RegisterErrorState) {
+            errorToast(state.error).show(context);
+          }
+
+          if (state is RegisterAddNewUserErrorState) {
+            errorToast(state.error).show(context);
+          }
         },
         builder: (context, state) {
           var cubit = RegisterCubit.get(context);

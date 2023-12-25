@@ -28,6 +28,9 @@ class LoginView extends StatelessWidget {
                 ),
                 (route) => false);
           }
+          if (state is LoginErrorState) {
+            errorToast(state.error).show(context);
+          }
         },
         builder: (context, state) {
           var cubit = LoginCubit.get(context);
