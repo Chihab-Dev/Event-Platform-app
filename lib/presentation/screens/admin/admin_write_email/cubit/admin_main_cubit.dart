@@ -119,7 +119,8 @@ class AdminCubit extends Cubit<AdminStates> {
     final smtpServer = gmailSaslXoauth2(email, token!);
     final message = Message()
       ..subject = eventNameController.text
-      ..text = eventDescController.text
+      ..text =
+          "An email about ${event.name} \n from : ${event.dateBegin}     to :  ${event.dateEnd} \n  ${eventDescController.text}"
       ..from = Address(email, 'GDG TEAM')
       ..recipients = event.registeredUsers;
 
