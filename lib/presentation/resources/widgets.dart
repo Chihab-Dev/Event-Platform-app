@@ -236,7 +236,7 @@ CherryToast errorToast(String msg) {
   return CherryToast.error(
     title: Text(msg, style: TextStyle(color: ColorManager.red)),
     backgroundColor: ColorManager.whiteGrey,
-    toastPosition: Position.top,
+    toastPosition: Position.bottom,
     toastDuration: const Duration(seconds: 5),
   );
 }
@@ -244,7 +244,7 @@ CherryToast errorToast(String msg) {
 CherryToast successToast(String msg) {
   return CherryToast.success(
     title: Text(msg, style: TextStyle(color: ColorManager.blue)),
-    toastPosition: Position.top,
+    toastPosition: Position.bottom,
     toastDuration: const Duration(seconds: 5),
   );
 }
